@@ -36,36 +36,9 @@
 		
 		$(".ct_list_pop:nth-child(4n+6)").css("background-color" , "whitesmoke");
 		
-		$("input[name='searchKeyword'").autocomplete({
-		      source: $.ajax( 
-						{
-							url : "/product/json/getUser/"+userId ,
-							method : "GET" ,
-							dataType : "json" ,
-							headers : {
-								"Accept" : "application/json",
-								"Content-Type" : "application/json"
-							},
-							success : function(JSONData , status) {
-
-								//Debug...
-								//alert(status);
-								//Debug...
-								//alert("JSONData : \n"+JSONData);
-								
-								var displayValue = "<h3>"
-															+"아이디 : "+JSONData.userId+"<br/>"
-															+"이  름 : "+JSONData.userName+"<br/>"
-															+"이메일 : "+JSONData.email+"<br/>"
-															+"ROLE : "+JSONData.role+"<br/>"
-															+"등록일 : "+JSONData.regDateString+"<br/>"
-															+"</h3>";
-								//Debug...									
-								//alert(displayValue);
-								$("h3").remove();
-								$( "#"+userId+"" ).html(displayValue);
-							}
-					});
+				
+		$("input[name='searchKeyword']").autocomplete({
+		      source: $.getJSON("product/json/productNameList")
 	    });
 		
 		

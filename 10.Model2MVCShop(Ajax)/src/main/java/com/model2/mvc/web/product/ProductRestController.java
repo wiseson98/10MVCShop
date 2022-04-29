@@ -1,6 +1,8 @@
 package com.model2.mvc.web.product;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -108,5 +110,17 @@ public class ProductRestController {
 		return map;
 	}
 	
-//	@RequestMapping(value = "json/")
+	@RequestMapping(value = "json/productNameList")
+	public Map<String, Object> productNameList(@PathVariable String keyword) throws Exception{
+		
+		System.out.println("/product/json/productNameList");
+		System.out.println("keyword : " + keyword);
+		
+		List<String> productNames = productService.getProductNameList(keyword);
+		System.out.println("productNames : " + productNames);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("productNames", productNames);
+		
+		return map;
+	}
 }

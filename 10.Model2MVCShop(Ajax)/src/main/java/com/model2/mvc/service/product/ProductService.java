@@ -1,5 +1,6 @@
 package com.model2.mvc.service.product;
 
+import java.util.List;
 import java.util.Map;
 
 import com.model2.mvc.common.Search;
@@ -19,4 +20,6 @@ public interface ProductService {
 	// 상품정보수정
 	public void updateProduct(Product product) throws Exception;
 	
+	// autocomplete
+	public List<String> getProductNameList(String keyword) throws Exception;
 }
