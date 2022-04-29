@@ -54,8 +54,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<String> getProductNameList(String keyword) throws Exception {
-		return productDao.getProductNameList(keyword);
+	public List<String> getProductNameList() throws Exception {
+		return productDao.getProductNameList();
 	}
 
 }

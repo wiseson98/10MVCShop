@@ -8,8 +8,13 @@
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
+
+
 <!-- CDN(Content Delivery Network) 호스트 사용 -->
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+
 <script type="text/javascript">
 
 	// 검색 / page 두가지 경우 모두 Form 전송을 위해 JavaScript 이용
@@ -20,6 +25,23 @@
 	
 	$(function(){
 		
+		let object1 = {     name:'John',     age:25,     gender:'boy',     hobby: ['운동', '영화감상'] }
+
+		let hobby = object1.hobby;
+		console.log("object1 : " + object1);
+		console.log("hobby : " + hobby);
+		console.log("hobby type : " + typeof hobby);
+		console.log("hobby Array : " + Array.isArray(hobby));
+		
+		var prodNames;
+		 $.getJSON("/product/json/productNameList",
+					  			function(JSONData, status){
+									console.log("JSONData : " + JSONData);
+					  				prodNames = JSONData.productNames;
+					  				console.log("prodNames Array : " + Array.isArray(prodNames));
+					  				return prodNames;
+					  			}
+				  );
 		$("td.ct_btn01:contains('검색')").on("click", function(){
 			fncGetList(1);
 		});
@@ -36,11 +58,12 @@
 		
 		$(".ct_list_pop:nth-child(4n+6)").css("background-color" , "whitesmoke");
 		
-				
+			
 		$("input[name='searchKeyword']").autocomplete({
-		      source: $.getJSON("product/json/productNameList")
+		      source: prodNames
 	    });
 		
+		/**/
 		
 	});
 
