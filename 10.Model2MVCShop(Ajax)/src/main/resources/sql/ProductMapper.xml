@@ -50,16 +50,15 @@
 	 </update>
 	
 	<!-- SQL : SELECT LIST -->
-	<select  id="getProductNameList"	resultType="String">
+	<select  id="getProductNameList" parameterType="String"	resultType="String">
 		SELECT prod_name
 		FROM product
-		<!-- 
+		<!-- --> 
 		<where>
 			<if test="value != null and value != ''">
 				prod_name like '%'||#{value}||'%'
 			</if>
 		</where>
-		 -->
 	</select>
 		 
 	<!-- SQL : SELECT LIST -->

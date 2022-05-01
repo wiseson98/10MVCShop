@@ -110,17 +110,17 @@ public class ProductRestController {
 		return map;
 	}
 	
-	@RequestMapping(value = "json/productNameList")
-	public Map<String, Object> productNameList() throws Exception{
+	@RequestMapping(value = "json/productNameList/{keyword}")
+	public List<String> productNameList(@PathVariable String keyword) throws Exception{
 		
 		System.out.println("/product/json/productNameList");
-//		System.out.println("keyword : " + keyword);
+		System.out.println("keyword : " + keyword);
 		
-		List<String> productNames = productService.getProductNameList();
+		List<String> productNames = productService.getProductNameList(keyword);
 		System.out.println("productNames : " + productNames);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("productNames", productNames);
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("productNames", productNames);
 		
-		return map;
+		return productNames;
 	}
 }

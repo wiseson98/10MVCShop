@@ -8,12 +8,9 @@
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
-<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
-
-
-<!-- CDN(Content Delivery Network) 호스트 사용 -->
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
 <script type="text/javascript">
 
@@ -24,24 +21,7 @@
 	}
 	
 	$(function(){
-		
-		let object1 = {     name:'John',     age:25,     gender:'boy',     hobby: ['운동', '영화감상'] }
-
-		let hobby = object1.hobby;
-		console.log("object1 : " + object1);
-		console.log("hobby : " + hobby);
-		console.log("hobby type : " + typeof hobby);
-		console.log("hobby Array : " + Array.isArray(hobby));
-		
-		var prodNames;
-		 $.getJSON("/product/json/productNameList",
-					  			function(JSONData, status){
-									console.log("JSONData : " + JSONData);
-					  				prodNames = JSONData.productNames;
-					  				console.log("prodNames Array : " + Array.isArray(prodNames));
-					  				return prodNames;
-					  			}
-				  );
+				
 		$("td.ct_btn01:contains('검색')").on("click", function(){
 			fncGetList(1);
 		});
@@ -58,9 +38,40 @@
 		
 		$(".ct_list_pop:nth-child(4n+6)").css("background-color" , "whitesmoke");
 		
-			
-		$("input[name='searchKeyword']").autocomplete({
-		      source: prodNames
+		$("#keyword").autocomplete({
+			source: function(request, response){
+				$.ajax({
+					url : "/product/json/productNameList/" + $("#keyword").val(),
+					type : "GET",
+					success : function(data){
+						response(
+							$.map(data, function(item){
+								console.log("item : " + item);
+								return{
+									label : item,
+									value : item
+									
+								};
+							})		
+						);
+					},
+					error : function(){
+						console.log("error");
+					}
+					
+				});
+			},
+			minLength : 1,
+	        select : function(evt, ui) {
+	            console.log("전체 data: " + JSON.stringify(ui));
+	            console.log("db Index : " + ui.item.idx);
+	            console.log("검색 데이터 : " + ui.item.value);
+	        }, 
+	        focus : function(evt, ui) {
+	            return false;
+	        },
+	        close : function(evt) {
+	        }
 	    });
 		
 		/**/
@@ -107,7 +118,7 @@
 				<option value="1" ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>상품명</option>
 				<option value="2" ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>상품가격</option>
 			</select>
-			<input type="text" name="searchKeyword" 
+			<input type="text" id="keyword" name="searchKeyword" 
 						value="${! empty search.searchKeyword ? search.searchKeyword : ""}"  
 						class="ct_input_g" style="width:200px; height:20px" > 
 		</td>

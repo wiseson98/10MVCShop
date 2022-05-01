@@ -58,8 +58,8 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public List<String> getProductNameList() throws Exception {		
-		return sqlSession.selectList("ProductMapper.getProductNameList");
+	public List<String> getProductNameList(String keyword) throws Exception {		
+		return sqlSession.selectList("ProductMapper.getProductNameList", keyword);
 	}
 
 }//end 

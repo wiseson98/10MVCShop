@@ -23,6 +23,6 @@ public interface ProductDao {
 	public void updateProduct(Product product) throws Exception;
 	
 	// autocomplete
-	public List<String> getProductNameList() throws Exception;
+	public List<String> getProductNameList(String keyword) throws Exception;
 		
 }
