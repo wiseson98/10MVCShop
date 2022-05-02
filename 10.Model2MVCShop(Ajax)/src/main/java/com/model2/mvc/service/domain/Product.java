@@ -2,6 +2,8 @@ package com.model2.mvc.service.domain;
 
 import java.sql.Date;
 
+import com.model2.mvc.common.Category;
+
 
 public class Product {
 	
@@ -14,6 +16,7 @@ public class Product {
 	private Date regDate;
 	private String proTranCode;
 	private int prodCategory;
+	private Category category;
 	
 	public Product(){
 	}
@@ -72,12 +75,19 @@ public class Product {
 	public void setProdCategory(int prodCategory) {
 		this.prodCategory = prodCategory;
 	}
+	public Category getCategory() {
+		return category;
+	}
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 
 	// Override
 	public String toString() {
 		return "ProductVO : [fileName]" + fileName
 				+ "[manuDate]" + manuDate+ "[price]" + price + "[prodDetail]" + prodDetail
-				+ "[prodName]" + prodName + "[prodNo]" + prodNo;
+				+ "[prodName]" + prodName + "[prodNo]" + prodNo + "[category]" + category;
+		
 	}
 		
 }

@@ -42,7 +42,11 @@ function fncAddProduct(){
 
 $(function(){
 	
-	$
+	$.getJSON("/product/json/getCategory",
+				function(JSONData, status){
+					
+				}
+	);
 	
 	$("td.ct_btn01:contains('등록')").on("click", function(){
 		fncAddProduct();
@@ -164,7 +168,7 @@ $(function(){
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td width="105">
-						<select 	name="prodCategory"		class="ct_input_g" 
+						<select name="prodCategory"		class="ct_input_g" 
 								style="width: 100px; height: 19px" maxLength="20">
 							<option value="001" selected="selected">현금구매</option>
 							<option value="002">신용구매</option>

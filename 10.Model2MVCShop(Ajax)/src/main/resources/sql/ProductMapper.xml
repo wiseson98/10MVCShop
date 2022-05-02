@@ -16,6 +16,18 @@
 		<result property="fileName" 		column="image_file" 		jdbcType="VARCHAR" />
 		<result property="regDate" 			column="reg_date" 			jdbcType="DATE" />
 		<result property="proTranCode" 		column="prod_status_code" 	jdbcType="CHAR" />
+		
+		<association property="category"  javaType="category">
+			<id property="categoryNo" column="category_no" jdbcType="NUMERIC"/>
+			<result property="categoryName" column="category_name" jdbcType="VARCHAR"/>			
+		</association>
+	</resultMap>
+	
+	<resultMap type="category" id="categorySelectMap">
+		<result property="categoryNo" 			column="category_no" 			jdbcType="NUMERIC" />
+		<result property="categoryName"			column="category_name" 			jdbcType="VARCHAR" />
+		<result property="categoryLevel" 		column="category_level" 		jdbcType="NUMERIC" />
+		<result property="categoryPrevLevel" 	column="category_prev_level" 	jdbcType="NUMERIC" />
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
@@ -48,19 +60,7 @@
 	   	</set>
 	   	WHERE prod_no = #{prodNo}
 	 </update>
-	
-	<!-- SQL : SELECT LIST -->
-	<select  id="getProductNameList" parameterType="String"	resultType="String">
-		SELECT prod_name
-		FROM product
-		<!-- --> 
-		<where>
-			<if test="value != null and value != ''">
-				prod_name like '%'||#{value}||'%'
-			</if>
-		</where>
-	</select>
-		 
+			 
 	<!-- SQL : SELECT LIST -->
 	<select  id="getProductList"  parameterType="map"	resultMap="productSelectMap">
 	  	SELECT *
@@ -100,4 +100,22 @@
 						</if> ) countTable						
 	 </select> 
 	 
+	 <!-- SQL : SELECT LIST -->
+	<select  id="getProductNameList" parameterType="String"	resultType="String">
+		SELECT prod_name
+		FROM product
+		<!-- --> 
+		<where>
+			<if test="value != null and value != ''">
+				prod_name like '%'||#{value}||'%'
+			</if>
+		</where>
+	</select>
+	
+	<!-- SQL : SELECT LIST -->
+	<select  id="getCategory"	resultMap="categorySelectMap">
+		SELECT category_no, category_name 
+		FROM category
+	</select>
+	
 </mapper>

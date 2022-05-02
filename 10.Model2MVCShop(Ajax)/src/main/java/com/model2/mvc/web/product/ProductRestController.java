@@ -123,4 +123,13 @@ public class ProductRestController {
 		
 		return productNames;
 	}
+	
+	@RequestMapping(value = "json/getCategory")
+	public List<String> getCategory() throws Exception{
+		
+		System.out.println("/product/json/getCategory");
+		
+//		List<String> category = productServic
+		return null;
+	}
 }

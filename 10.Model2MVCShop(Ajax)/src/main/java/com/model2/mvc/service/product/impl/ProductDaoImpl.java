@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.model2.mvc.common.Category;
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.product.ProductDao;
@@ -60,6 +61,11 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public List<String> getProductNameList(String keyword) throws Exception {		
 		return sqlSession.selectList("ProductMapper.getProductNameList", keyword);
+	}
+
+	@Override
+	public List<Category> getCategory() throws Exception {
+		return null;
 	}
 
 }//end 

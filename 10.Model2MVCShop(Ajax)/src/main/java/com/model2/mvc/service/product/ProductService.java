@@ -3,6 +3,7 @@ package com.model2.mvc.service.product;
 import java.util.List;
 import java.util.Map;
 
+import com.model2.mvc.common.Category;
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
 
@@ -22,4 +23,7 @@ public interface ProductService {
 	
 	// autocomplete
 	public List<String> getProductNameList(String keyword) throws Exception;
+	
+	// category¸í Á¶È¸
+	public List<Category> getCategory() throws Exception;
 }

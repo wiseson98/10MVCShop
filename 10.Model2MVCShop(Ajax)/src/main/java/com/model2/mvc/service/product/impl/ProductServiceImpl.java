@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.model2.mvc.common.Category;
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.product.ProductDao;
@@ -55,6 +56,11 @@ public class ProductServiceImpl implements ProductService {
 
 	public List<String> getProductNameList(String keyword) throws Exception {
 		return productDao.getProductNameList(keyword);
+	}
+
+	@Override
+	public List<Category> getCategory() throws Exception {
+		return null;
 	}
 
 }
