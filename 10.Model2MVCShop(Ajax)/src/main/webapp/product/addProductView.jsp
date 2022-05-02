@@ -44,6 +44,15 @@ $(function(){
 	
 	$.getJSON("/product/json/getCategory",
 				function(JSONData, status){
+					console.log("JSONData : " + Object.keys(JSONData));
+					console.log("JSONData[0] : " + JSONData[0].categoryName);
+					console.log("JSONData[1] : " + JSONData[1].categoryName);					
+					
+					$("select[name='productCategory']").empty();
+					$.each(JSONData, function(index, value){						
+						var option = $("<option value='" + JSONData[index].categoryNo + "'>" + JSONData[index].categoryName + "</option>");
+						$("select[name='productCategory']").append(option);
+					});
 					
 				}
 	);
@@ -56,6 +65,9 @@ $(function(){
 		$("form")[0].reset();
 	});
 	
+	$("select[name='productCategory']").change(function(){
+		console.log("selected : " + $(this).val());	
+	});
 });
 
 </script>
@@ -168,10 +180,8 @@ $(function(){
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td width="105">
-						<select name="prodCategory"		class="ct_input_g" 
+						<select name="productCategory"		class="ct_input_g" 
 								style="width: 100px; height: 19px" maxLength="20">
-							<option value="001" selected="selected">현금구매</option>
-							<option value="002">신용구매</option>
 						</select>
 					</td>
 				</tr>

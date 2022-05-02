@@ -60,7 +60,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Category> getCategory() throws Exception {
-		return null;
+		return productDao.getCategory();
 	}
 
 }

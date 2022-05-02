@@ -61,7 +61,12 @@
 		 	$( ".Depth03:contains('상품검색')" ).on("click" , function() {
 				//alert(  $( ".Depth03:contains('상품검색')" ) );
 		 		$(window.parent.frames["rightFrame"].document.location).attr("href","/product/listProduct?menu=search");
-			});		 	
+			});	
+		 	
+		 	$( ".Depth03:contains('가전')" ).on("click" , function() {
+				//alert(  $( ".Depth03:contains('상품검색')" ) );
+		 		$(window.parent.frames["rightFrame"].document.location).attr("href","/product/listProduct?menu=search&category=10008");
+			});
 		 	
 		 	$( ".Depth03:contains('구매이력조회')" ).on("click" , function() {
 				//alert(  $( ".Depth03:contains('구매이력조회')" ) );
@@ -153,6 +158,13 @@
 				<td class="Depth03">
 					<!-- <a href="/listProduct.do?menu=search" target="rightFrame">상 품 검 색</a>  -->
 					상품검색
+				</td>
+			</tr>
+			
+			<tr>
+				<td class="Depth03">
+					<!-- <a href="/listProduct.do?menu=search" target="rightFrame">상 품 검 색</a>  -->
+					가전
 				</td>
 			</tr>
 			

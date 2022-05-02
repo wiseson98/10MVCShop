@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.model2.mvc.common.Category;
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
@@ -60,9 +61,11 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/addProduct", method = RequestMethod.POST)
-	public String addProduct(@ModelAttribute("product") Product product, MultipartFile file) throws Exception{
+	public String addProduct(@ModelAttribute("product") Product product, @RequestParam("productCategory") int categoryNo, MultipartFile file) throws Exception{
 		
 		System.out.println("/product/addProduct : POST ");
+		
+		System.out.println("productCategory : " + categoryNo);
 		
 		if(!file.isEmpty()) {
 			String savedName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
@@ -71,6 +74,9 @@ public class ProductController {
 					
 			product.setFileName(savedName);
 		}		
+		
+		product.setProdCategory(new Category());
+		product.getProdCategory().setCategoryNo(categoryNo);
 		
 		productService.addProduct(product);
 				
@@ -108,14 +114,16 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/listProduct")
-	public String listProduct(@ModelAttribute("search") Search search, @RequestParam(value = "menu", defaultValue = "search") String menu, Model model) throws Exception{
+	public String listProduct(@ModelAttribute("search") Search search, @RequestParam(value = "menu", defaultValue = "search") String menu, @RequestParam(value = "category", required = false) int categoryNo, Model model) throws Exception{
 		
 		System.out.println("/listProduct");
+		
+		System.out.println("categoryNo : " + categoryNo);
 		
 		if(search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
 		}
-		search.setPageSize(pageSize);
+		search.setPageSize(pageSize);		
 		
 		Map<String, Object> map = productService.getProductList(search);
 		

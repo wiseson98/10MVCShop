@@ -65,7 +65,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public List<Category> getCategory() throws Exception {
-		return null;
+		return sqlSession.selectList("ProductMapper.getCategory");
 	}
 
 }//end 

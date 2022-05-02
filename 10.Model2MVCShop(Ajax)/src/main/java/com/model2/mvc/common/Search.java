@@ -15,6 +15,7 @@ public class Search {
 	//==> ÂüÁ¶
 	private int endRowNum;
 	private int startRowNum;
+	private Category category;
 	
 	///Constructor
 	public Search() {
@@ -57,12 +58,22 @@ public class Search {
 	public int getStartRowNum() {
 		return (getCurrentPage()-1)*getPageSize()+1;
 	}
+	
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 
 	@Override
 	public String toString() {
 		return "Search [currentPage=" + currentPage + ", searchCondition="
 				+ searchCondition + ", searchKeyword=" + searchKeyword
 				+ ", pageSize=" + pageSize + ", endRowNum=" + endRowNum
-				+ ", startRowNum=" + startRowNum + "]";
+				+ ", startRowNum=" + startRowNum + ", category=" + category + "]";
 	}
+
+	
 }

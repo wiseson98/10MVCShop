@@ -17,7 +17,7 @@
 		<result property="regDate" 			column="reg_date" 			jdbcType="DATE" />
 		<result property="proTranCode" 		column="prod_status_code" 	jdbcType="CHAR" />
 		
-		<association property="category"  javaType="category">
+		<association property="prodCategory"  javaType="category">
 			<id property="categoryNo" column="category_no" jdbcType="NUMERIC"/>
 			<result property="categoryName" column="category_name" jdbcType="VARCHAR"/>			
 		</association>
@@ -33,9 +33,9 @@
 	<!-- SQL : INSERT -->
 	<insert 	id="addProduct"		parameterType="product" >
 	 	INSERT
-		INTO product( prod_no, prod_name, prod_detail, manufacture_day, price, image_file, reg_date) 
+		INTO product( prod_no, prod_name, prod_detail, manufacture_day, price, image_file, reg_date, category_no) 
 		VALUES	 	( seq_product_prod_no.NEXTVAL, #{prodName}, #{prodDetail:VARCHAR}, #{manuDate:VARCHAR}, 
-					  #{price:NUMERIC}, #{fileName:VARCHAR} , SYSDATE )
+					  #{price:NUMERIC}, #{fileName:VARCHAR} , SYSDATE, #{prodCategory.categoryNo} )
 	</insert>
 	 
 	 <!-- SQL : SELECT ONE -->
@@ -70,12 +70,18 @@
 								<where>
 									p.prod_no = t.prod_no(+)
 									<if test="searchCondition != null">
-										<if test="searchCondition == 0 and searchKeyword !='' ">
+									<!-- <if test="searchCondition == 0 and searchKeyword !='' ">
 							 				AND p.prod_no = #{searchKeyword}
-										</if>
+										</if> -->
 										<if test="searchCondition == 1 and searchKeyword !='' ">
-							 				AND p.prod_name LIKE '%${searchKeyword}%'
-										</if>													
+							 				AND p.prod_name LIKE '%'||#{searchKeyword}||'%'
+										</if>										
+									<!-- <if test="searchCondition == 2 and searchKeyword !='' ">
+							 				AND p.prod_name LIKE '%'||#{searchKeyword}||'%'
+										</if> -->																							
+									</if>
+									<if test="searchCondition == 4 and searchKeyword !='' ">
+										AND p.category_no = #{searchKeyword}
 									</if>
 								</where>
 						ORDER BY prod_no DESC ) inner_table
@@ -87,17 +93,18 @@
 	<select  id="getTotalCount"  parameterType="search"	 resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM(	SELECT prod_no, prod_name , price, reg_date
-						FROM product
-						<if test="searchCondition != null">
+						FROM product						
 							<where>
-								<if test="searchCondition == 0 and searchKeyword !='' ">
-						 			prod_no = #{searchKeyword}
-								</if>
-								<if test="searchCondition == 1 and searchKeyword !='' ">
-						 			prod_name LIKE '%${searchKeyword}%'
+								<if test="searchCondition != null">
+								<!-- <if test="searchCondition == 0 and searchKeyword !='' ">
+							 			prod_no = #{searchKeyword}
+									</if> -->
+									<if test="searchCondition == 1 and searchKeyword !='' ">
+							 			prod_name LIKE '%${searchKeyword}%'
+									</if>
 								</if>
 							</where>
-						</if> ) countTable						
+						 ) countTable						
 	 </select> 
 	 
 	 <!-- SQL : SELECT LIST -->

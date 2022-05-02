@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.model2.mvc.common.Category;
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
@@ -125,11 +126,13 @@ public class ProductRestController {
 	}
 	
 	@RequestMapping(value = "json/getCategory")
-	public List<String> getCategory() throws Exception{
+	public List<Category> getCategory() throws Exception{
 		
 		System.out.println("/product/json/getCategory");
 		
-//		List<String> category = productServic
-		return null;
+		List<Category> category = productService.getCategory();
+		
+		System.out.println("result : " + category);
+		return category;
 	}
 }

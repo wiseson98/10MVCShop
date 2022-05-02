@@ -15,8 +15,7 @@ public class Product {
 	private int prodNo;
 	private Date regDate;
 	private String proTranCode;
-	private int prodCategory;
-	private Category category;
+	private Category prodCategory;
 	
 	public Product(){
 	}
@@ -69,25 +68,18 @@ public class Product {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
-	public int getProdCategory() {
+	public Category getProdCategory() {
 		return prodCategory;
 	}
-	public void setProdCategory(int prodCategory) {
+	public void setProdCategory(Category prodCategory) {
 		this.prodCategory = prodCategory;
-	}
-	public Category getCategory() {
-		return category;
-	}
-	public void setCategory(Category category) {
-		this.category = category;
 	}
 
 	// Override
 	public String toString() {
 		return "ProductVO : [fileName]" + fileName
 				+ "[manuDate]" + manuDate+ "[price]" + price + "[prodDetail]" + prodDetail
-				+ "[prodName]" + prodName + "[prodNo]" + prodNo + "[category]" + category;
-		
+				+ "[prodName]" + prodName + "[prodNo]" + prodNo + "[prodCategory]" + prodCategory;		
 	}
 		
 }
