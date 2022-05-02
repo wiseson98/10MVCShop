@@ -11,6 +11,10 @@ public class Category {
 	/// Constructor
 	public Category() {
 	}
+	public Category(int categoryNo) {
+		this.categoryNo = categoryNo;
+	}
+
 
 	/// Method
 	public int getCategoryNo() {

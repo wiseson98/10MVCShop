@@ -114,7 +114,8 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/listProduct")
-	public String listProduct(@ModelAttribute("search") Search search, @RequestParam(value = "menu", defaultValue = "search") String menu, @RequestParam(value = "category", required = false) int categoryNo, Model model) throws Exception{
+	public String listProduct(@ModelAttribute("search") Search search, @RequestParam(value = "menu", defaultValue = "search") String menu, 
+							  @RequestParam(value = "categoryNo", defaultValue = "0") int categoryNo, Model model) throws Exception{
 		
 		System.out.println("/listProduct");
 		
@@ -125,6 +126,8 @@ public class ProductController {
 		}
 		search.setPageSize(pageSize);		
 		
+		search.setCategory(new Category(categoryNo));
+		
 		Map<String, Object> map = productService.getProductList(search);
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
@@ -134,6 +137,7 @@ public class ProductController {
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
 		model.addAttribute("menu", menu);
+		model.addAttribute("categoryNo", categoryNo);
 		
 		return "forward:/product/listProduct.jsp";
 	}

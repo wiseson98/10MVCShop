@@ -47,6 +47,7 @@ public class ProductDaoImpl implements ProductDao {
 		map.put("searchKeyword",  search.getSearchKeyword());
 		map.put("endRowNum",  search.getEndRowNum()+"" );
 		map.put("startRowNum",  search.getStartRowNum()+"" );
+		map.put("categoryNo", search.getCategory().getCategoryNo()+"");
 		return sqlSession.selectList("ProductMapper.getProductList", map);
 	}
 

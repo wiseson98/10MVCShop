@@ -80,8 +80,8 @@
 							 				AND p.prod_name LIKE '%'||#{searchKeyword}||'%'
 										</if> -->																							
 									</if>
-									<if test="searchCondition == 4 and searchKeyword !='' ">
-										AND p.category_no = #{searchKeyword}
+									<if test="categoryNo != 0">
+										AND p.category_no = #{categoryNo}
 									</if>
 								</where>
 						ORDER BY prod_no DESC ) inner_table
@@ -100,8 +100,11 @@
 							 			prod_no = #{searchKeyword}
 									</if> -->
 									<if test="searchCondition == 1 and searchKeyword !='' ">
-							 			prod_name LIKE '%${searchKeyword}%'
+							 			prod_name LIKE '%'||#{searchKeyword}||'%'
 									</if>
+								</if>
+								<if test="category.categoryNo != 0">
+										AND category_no = #{category.categoryNo}
 								</if>
 							</where>
 						 ) countTable						
