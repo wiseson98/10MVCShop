@@ -151,11 +151,13 @@ public class ProductController {
 		
 		model.addAttribute("product", product);
 		
+		System.out.println("product : " + product);
+		
 		return "forward:/product/updateProduct.jsp";
 	}
 	
 	@RequestMapping(value = "/updateProduct", method = RequestMethod.POST)
-	public String updateProduct(@ModelAttribute("product") Product product, MultipartFile file ) throws Exception{
+	public String updateProduct(@ModelAttribute("product") Product product, @RequestParam("productCategory") int categoryNo, MultipartFile file ) throws Exception{
 		
 		System.out.println("/updateProduct");
 		
@@ -166,6 +168,9 @@ public class ProductController {
 					
 			product.setFileName(savedName);
 		}
+		
+		product.setProdCategory(new Category());
+		product.getProdCategory().setCategoryNo(categoryNo);
 		
 		productService.updateProduct(product);
 		

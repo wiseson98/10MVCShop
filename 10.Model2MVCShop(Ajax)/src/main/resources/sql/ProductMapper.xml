@@ -56,7 +56,8 @@
 			manufacture_day	= #{manuDate:VARCHAR} ,
 			price		= <if test="price==0">null</if>
 						  <if test="price!=0">#{price}</if>,
-			image_file  = #{fileName:VARCHAR}
+			image_file  = #{fileName:VARCHAR},
+			category_no = #{prodCategory.categoryNo}
 	   	</set>
 	   	WHERE prod_no = #{prodNo}
 	 </update>

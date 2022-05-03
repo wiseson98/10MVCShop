@@ -43,12 +43,39 @@ function fncAddProduct(){
 
 $(function(){
 	
+	$.getJSON("/product/json/getCategory",
+			function(JSONData, status){
+				console.log("JSONData : " + Object.keys(JSONData));
+				console.log("JSONData[0] : " + JSONData[0].categoryName);
+				console.log("JSONData[1] : " + JSONData[1].categoryName);					
+				
+				$("select[name='productCategory']").empty();
+				var selectItem = ${ product.prodCategory.categoryNo };
+				console.log(selectItem);
+				$.each(JSONData, function(index, value){						
+					var option;
+					if(JSONData[index].categoryNo == selectItem){
+						option = $("<option value='" + JSONData[index].categoryNo + "' selected>" + JSONData[index].categoryName + "</option>");
+					}else{
+						option = $("<option value='" + JSONData[index].categoryNo + "'>" + JSONData[index].categoryName + "</option>");
+					}
+					
+					$("select[name='productCategory']").append(option);
+				});
+				
+			}
+	);
+	
 	$("td.ct_btn01:contains('수정')").on("click", function(){
 		fncAddProduct();
 	});
 	
 	$("td.ct_btn01:contains('취소')").on("click", function(){
 		history.go(-1);
+	});
+	
+	$("select[name='productCategory']").change(function(){
+		console.log("selected : " + $(this).val());	
 	});
 	
 });
@@ -152,6 +179,26 @@ $(function(){
 			<input	type="file" name="file" class="ct_input_g" 
 						style="width: 200px; height: 19px" maxLength="13" value="${ product.fileName }"/>
 																		<!-- value="../../images/empty.GIF" -->
+		</td>
+	</tr>
+	<tr>
+		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+	</tr>
+	<tr>
+		<td width="104" class="ct_write">
+			카테고리 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle">
+		</td>
+		<td bgcolor="D6D6D6" width="1"></td>
+		<td class="ct_write01">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td width="105">
+						<select name="productCategory"		class="ct_input_g" 
+								style="width: 100px; height: 19px" maxLength="20">
+						</select>
+					</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
 	<tr>
